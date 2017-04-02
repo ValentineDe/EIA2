@@ -18,3 +18,7 @@
 .umbruch {
 	clear: left;
 }
+
+div:nth-child(8n+1){
+	clear: left;
+}
