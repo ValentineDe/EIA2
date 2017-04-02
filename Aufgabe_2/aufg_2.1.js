@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
         element.textContent = rice.toString();
         //        Umbruch nach jedem 8. Schachfeld
         if (n % 8 == 0) {
-            element.className += " umbruch";
             line = line + 1;
             console.log(n);
         }
+        //          Farbwechsel gerade und ungerade Linie
         if (line % 2 == 0) {
             if (n % 2 != 0) {
                 element.className = "board black";
