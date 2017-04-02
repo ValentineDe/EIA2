@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     let rice = 1;
     let line = 0;

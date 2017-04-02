@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function(): void {
 
         let element: HTMLElement = document.createElement("div");
         element.textContent = rice.toString();
-
         
                 
 //        Umbruch nach jedem 8. Schachfeld
