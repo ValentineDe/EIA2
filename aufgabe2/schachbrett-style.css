@@ -1,0 +1,20 @@
+.board {
+	height: 80px;
+	width: 80px;
+	border: 1px solid black;
+	float: left;
+	position: relative;
+	color: red;
+}
+
+.white {
+	background: white;
+}
+
+.black {
+	background: black;
+}
+
+div:nth-child(8n+1){
+	clear: left;
+}
