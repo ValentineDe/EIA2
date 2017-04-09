@@ -43,12 +43,15 @@ document.addEventListener("DOMContentLoaded", function () {
         divList[a].addEventListener("click", newColor);
         function newColor() {
             if (status == false) {
-                divList[a].style.backgroundColor = "red";
+                divList[a].style.borderColor = "red";
+                divList[a].style.borderWidth = "3px";
                 status = true;
             }
             else {
-                divList[a].style.backgroundColor = "grey";
-                status = true;
+                divList[a].style.borderColor = "red";
+                divList[a].style.borderWidth = "3px";
+                status = false;
+                   
             }
         }
     }
