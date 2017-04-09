@@ -61,7 +61,8 @@ let divList: NodeListOf<HTMLDivElement> = document.getElementsByTagName ("div");
             if (status == false) {
                 divList[a].style.backgroundColor = "red";
                 status = true;
-            }
+           }
+            
            else {
            divList[a].style.backgroundColor = "grey";
            status = true;  }
