@@ -3,7 +3,7 @@
 //Matrikel: 254015
 //Datum: 09.04.2017
 //    
-//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er jedoch unteranderem in Zusammenarbeit mit Salome Wei�er, Janett und Nadine entstanden ist.
+//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er jedoch unteranderem in Zusammenarbeit mit Salome Wei�er, Janett Stüwe und Nadine Malinowski entstanden ist.
 //Er wurde nicht kopiert und auch nicht diktiert.
 document.addEventListener("DOMContentLoaded", function () {
     let rice = 1;
