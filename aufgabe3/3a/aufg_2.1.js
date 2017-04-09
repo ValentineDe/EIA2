@@ -1,9 +1,9 @@
-//Aufgabe: Aufgabe 2a
+//Aufgabe: Aufgabe 3a
 //Name: Valentine Deinert
 //Matrikel: 254015
-//Datum: 31.03.2017
+//Datum: 09.04.2017
 //    
-//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er jedoch unteranderem in Zusammenarbeit mit Salome Wei�er entstanden ist.
+//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er jedoch unteranderem in Zusammenarbeit mit Salome Wei�er, Janett und Nadine entstanden ist.
 //Er wurde nicht kopiert und auch nicht diktiert.
 document.addEventListener("DOMContentLoaded", function () {
     let rice = 1;
@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
         divList[a].addEventListener("click", newColor);
         function newColor() {
             if (status == false) {
-                divList[a].style.backgroundColor = "orange";
+                divList[a].style.backgroundColor = "red";
                 status = true;
             }
             else {
-                divList[a].style.backgroundColor = "green";
+                divList[a].style.backgroundColor = "grey";
                 status = true;
             }
         }
