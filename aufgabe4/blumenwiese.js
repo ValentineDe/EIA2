@@ -1,8 +1,7 @@
 //Aufgabe: Aufgabe 4
 //Name: Valentine Deinert
 //Matrikel: 254015
-//Datum: 18.04.2017
-//    
+//Datum: 18.04.2017  
 //Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe.
 //Er wurde nicht kopiert und auch nicht diktiert.
 var L4_Canvas;
