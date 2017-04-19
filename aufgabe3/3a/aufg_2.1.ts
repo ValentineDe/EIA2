@@ -85,12 +85,14 @@ document.addEventListener("DOMContentLoaded", function(): void {
 document.addEventListener("mousemove", function (event) {
     let x = event.clientX;
     let y = event.clientY;
-    document.getElementById("box").style.position = "absolute";
+    document.getElementById("box").style.position = "relative";
+    document.getElementById("box").style.zIndex = "10000";
     
     //Koordinaten der Box
     document.getElementById("box").style.top = y + 15 + "px";
     document.getElementById("box").style.left = x + 15 + "px";
     
+    document.getElementById("box").style.width = "120px";
     document.getElementById("box").style.border = "3px solid darkred";
     document.getElementById("box").style.backgroundColor = "white";
     document.getElementById("box").style.padding = "10px";
