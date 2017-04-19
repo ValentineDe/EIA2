@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function(): void {
 
     let rice: number = 1;
     let line: number = 0;
+    let boxResult = 0;
 
     for (let n: number = 0; n < 64; n++) {
 
@@ -50,28 +51,49 @@ document.addEventListener("DOMContentLoaded", function(): void {
 
 
     }
-
-let divList: NodeListOf<HTMLDivElement> = document.getElementsByTagName ("div");
-    let status: boolean = false;
-
-    for (let a: number = 0; a < 8; a++) {
-        divList[a].addEventListener("click", newColor);
-
-        function newColor(): void {
-            if (status == false) {
-                divList[a].style.backgroundColor = "red";
-                status = true;
-           }
-            
-           else {
-           divList[a].style.backgroundColor = "grey";
-           status = true;  }
-      
-      }   
+    
+// Farbwechsel bei "Klick"
+    
+    document.getElementsByTagName("div")[0];
+    
+    let divList = document.getElementsByTagName("div");
+    
+    for (let i = 0; i < 9; i++) {
+        divList[i].addEventListener("click", colorChange);
+        
+        function colorChange() {
+            if (divList[i].style.backgroundColor != "red") {
+                divList[i].style.backgroundColor = "red";
+                boxResult = boxResult + Number(divList[i].textContent);
+            }
+            else {
+                if (i % 2 == 0) {
+                    divList[i].style.backgroundColor = "black";
+                }
+                else {
+                    divList[i].style.backgroundColor = "white";
+                }
+                boxResult = boxResult - Number(divList[i].textContent);
+            }
+            document.getElementById("box").textContent = "Dezimalzahl: " + boxResult.toString() + " Hexadezimal: " + boxResult.toString(16);
+            ;
+        }
     }
        
 });    
     
+document.addEventListener("mousemove", function (event) {
+    let x = event.clientX;
+    let y = event.clientY;
+    document.getElementById("box").style.position = "absolute";
     
+    //Koordinaten der Box
+    document.getElementById("box").style.top = y + 15 + "px";
+    document.getElementById("box").style.left = x + 15 + "px";
+    
+    document.getElementById("box").style.border = "3px solid darkred";
+    document.getElementById("box").style.backgroundColor = "white";
+    document.getElementById("box").style.padding = "10px";
+});    
 
     

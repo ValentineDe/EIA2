@@ -5,10 +5,10 @@
 //    
 //Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er jedoch unteranderem in Zusammenarbeit mit Salome Wei�er, Janett Stüwe und Nadine Malinowski entstanden ist.
 //Er wurde nicht kopiert und auch nicht diktiert.
-
 document.addEventListener("DOMContentLoaded", function () {
     let rice = 1;
     let line = 0;
+    let boxResult = 0;
     for (let n = 0; n < 64; n++) {
         let element = document.createElement("div");
         element.textContent = rice.toString();
@@ -37,23 +37,39 @@ document.addEventListener("DOMContentLoaded", function () {
         rice = rice * 2;
         document.body.appendChild(element);
     }
+    // Farbwechsel bei "Klick"
+    document.getElementsByTagName("div")[0];
     let divList = document.getElementsByTagName("div");
-    let status = false;
-    for (let a = 0; a < 8; a++) {
-        divList[a].addEventListener("click", newColor);
-        function newColor() {
-            if (status == false) {
-                divList[a].style.borderColor = "red";
-                divList[a].style.borderWidth = "3px";
-                status = true;
+    for (let i = 0; i < 9; i++) {
+        divList[i].addEventListener("click", colorChange);
+        function colorChange() {
+            if (divList[i].style.backgroundColor != "red") {
+                divList[i].style.backgroundColor = "red";
+                boxResult = boxResult + Number(divList[i].textContent);
             }
             else {
-                divList[a].style.borderColor = "red";
-                divList[a].style.borderWidth = "3px";
-                status = false;
-                   
+                if (i % 2 == 0) {
+                    divList[i].style.backgroundColor = "black";
+                }
+                else {
+                    divList[i].style.backgroundColor = "white";
+                }
+                boxResult = boxResult - Number(divList[i].textContent);
             }
+            document.getElementById("box").textContent = "Dezimalzahl: " + boxResult.toString() + " Hexadezimal: " + boxResult.toString(16);
+            ;
         }
     }
+});
+document.addEventListener("mousemove", function (event) {
+    let x = event.clientX;
+    let y = event.clientY;
+    document.getElementById("box").style.position = "absolute";
+    //Koordinaten der Box
+    document.getElementById("box").style.top = y + 15 + "px";
+    document.getElementById("box").style.left = x + 15 + "px";
+    document.getElementById("box").style.border = "3px solid darkred";
+    document.getElementById("box").style.backgroundColor = "white";
+    document.getElementById("box").style.padding = "10px";
 });
 //# sourceMappingURL=aufg_2.1.js.map

@@ -15,6 +15,6 @@
 	background: black;
 }
 
-div:nth-child(8n+1){
+div:nth-child(8n+2){
 	clear: left;
 }
