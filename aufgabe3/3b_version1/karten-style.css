@@ -1,0 +1,33 @@
+div{
+	width: 130px;
+	height:140px;
+	text-align: center;
+	padding-top:1em;
+	font-size: 2em;
+}
+
+.Handkarten{
+	display:inline;
+	position:relative;
+	top:300px;
+	border: red solid 1px;
+	background-color:white;
+	padding-top:50px;
+	padding-bottom:50px;
+	padding-left: 10px;
+	padding-right:10px;
+}
+
+#Nachziehstapel{
+	position:relative;
+	border: red solid 1px;
+	background-color:#F6CECE;
+}
+
+#Ablagestapel{
+	position:relative;
+	left: 400px;
+	top: -210px;
+	border: red solid 1px;
+	background-color:grey;
+}
