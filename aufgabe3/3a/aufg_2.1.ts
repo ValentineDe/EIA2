@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function(): void {
 
     let rice: number = 1;
     let line: number = 0;
-    let boxResult = 0;
+    let boxResult: number = 0;
 
     for (let n: number = 0; n < 64; n++) {
 
@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", function(): void {
     
     document.getElementsByTagName("div")[0];
     
-    let divList = document.getElementsByTagName("div");
+    let divList: NodeListOf<HTMLElement> = document.getElementsByTagName("div");
     
-    for (let i = 0; i < 9; i++) {
+    for (let i: number = 0; i < 9; i++) {
         divList[i].addEventListener("click", colorChange);
         
-        function colorChange() {
+        function colorChange(): void {
             if (divList[i].style.backgroundColor != "red") {
                 divList[i].style.backgroundColor = "red";
                 boxResult = boxResult + Number(divList[i].textContent);
@@ -82,9 +82,9 @@ document.addEventListener("DOMContentLoaded", function(): void {
        
 });    
     
-document.addEventListener("mousemove", function (event) {
-    let x = event.clientX;
-    let y = event.clientY;
+document.addEventListener("mousemove", function(event): void {
+    let x: number = event.clientX;
+    let y: number = event.clientY;
     document.getElementById("box").style.position = "relative";
     document.getElementById("box").style.zIndex = "10000";
     
