@@ -2,7 +2,6 @@
 //Name: Valentine Deinert
 //Matrikel: 254015
 //Datum: 09.04.2017
-//    
 //Dieser Code wurde mit Hilfe von Salome Weißer, Janett Stüwe und Nadine Malinowski geschrieben.
 //Er wurde verstanden und umgeschrieben.
 var MauMau;
