@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(): void {
     
     let divList: NodeListOf<HTMLElement> = document.getElementsByTagName("div");
     
-    for (let i: number = 0; i < 9; i++) {
+    for (let i: number = 0; i < 8; i++) {
         divList[i].addEventListener("click", colorChange);
         
         function colorChange(): void {

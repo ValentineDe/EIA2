@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Farbwechsel bei "Klick"
     document.getElementsByTagName("div")[0];
     let divList = document.getElementsByTagName("div");
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
         divList[i].addEventListener("click", colorChange);
         function colorChange() {
             if (divList[i].style.backgroundColor != "red") {
