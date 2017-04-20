@@ -75,7 +75,6 @@ namespace MauMau {
         }
     }
     
-    
     //Teil2: random-Karte wird hinzugefügt, wenn Platz im Arry ist -> Arry ist gleich null
     
     function addToLeereHand(): HTMLDivElement {
