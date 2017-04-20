@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function(): void {
         rice = rice * 2;
         document.body.appendChild(element);
 
-
     }
     
 // Farbwechsel bei "Klick"
