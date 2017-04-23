@@ -4,6 +4,7 @@
 //Datum: 23.04.2017  
 //Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe.
 //Er wurde nicht kopiert und auch nicht diktiert.
+
 var L4_Canvas;
 (function (L4_Canvas) {
     window.addEventListener("load", init);
