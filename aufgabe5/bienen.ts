@@ -61,8 +61,8 @@ namespace L4_Canvas {
 
         //Startpunkt Bienen am Bienenstock
         for (let i: number = 0; i < n; i++) {
-            x[i] = 450;
-            y[i] = 500;
+            x[i] = 420;
+            y[i] = 490;
         }
         window.setTimeout(animate, 20); //Verzögerung der function um 20sec
         canvas.addEventListener("click", drawNewBee); //click auf canvas dann function
