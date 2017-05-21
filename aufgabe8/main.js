@@ -8,7 +8,7 @@ var VL8;
 (function (VL8) {
     window.addEventListener("load", init);
     let image;
-    let n = 10;
+    let n = 5;
     VL8.bees = [];
     VL8.flowers = [];
     function init(_event) {
@@ -28,18 +28,12 @@ var VL8;
             let rd = new VL8.Daisy();
             rd.draw();
         }
-        //Random Roses
-        for (var i = 0; i < 5; i++) {
-            let rr = new VL8.Rose();
-            rr.draw();
-        }
-        //Bild wird erstellt
-        image = VL8.crc2.getImageData(0, 0, canvas.width, canvas.height);
         //Blumen im Array platzieren und ihnen eine random Position vergeben
         for (let i = 0; i < 8; i++) {
             let hf = new VL8.Rose();
             VL8.flowers.push(hf);
             console.log(hf);
+            VL8.flowers[i].draw();
         }
         //Startposition Biene
         for (let i = 0; i < n; i++) {
@@ -48,6 +42,8 @@ var VL8;
             var h = new VL8.HoneyBee(420, 490, "yellow", (i % 2) == 1);
             VL8.bees.push(h);
         }
+        //Bild wird erstellt
+        image = VL8.crc2.getImageData(0, 0, canvas.width, canvas.height);
         window.setTimeout(animate, 20); //Verzögerung der function um 20sec
         canvas.addEventListener("click", drawNewBee); //click auf canvas dann function
         canvas.addEventListener("touch", drawNewBee);

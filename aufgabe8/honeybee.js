@@ -17,18 +17,18 @@ var VL8;
             this.y = 490;
         }
         setRandomFlowerTarget() {
-            let randomtargetflower = Math.round(Math.random() * (VL8.flowers.length - 1));
-            this.xtarget = VL8.flowers[randomtargetflower].x;
-            this.ytarget = VL8.flowers[randomtargetflower].y;
+            let flowertarget = Math.round(Math.random() * (VL8.flowers.length - 1));
+            this.xtarget = VL8.flowers[flowertarget].x;
+            this.ytarget = VL8.flowers[flowertarget].y;
         }
         move() {
-            let xDiff = this.xtarget - this.x;
-            let yDiff = this.ytarget - this.y;
-            if (Math.abs(xDiff) < 0.5 && Math.abs(yDiff) < 0.5)
+            let xDiff = this.xtarget - this.x - 30;
+            let yDiff = this.ytarget - this.y - 60;
+            if (Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1)
                 this.setRandomFlowerTarget();
             else {
-                this.x += xDiff;
-                this.y += yDiff;
+                this.x += xDiff * 0.02; //Aktion und neues target um 0.02 verlangsamen
+                this.y += yDiff * 0.02;
             }
         }
         drawBee() {

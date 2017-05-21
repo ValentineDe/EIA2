@@ -11,7 +11,7 @@ namespace VL8 {
     export let crc2: CanvasRenderingContext2D;
 
     let image: ImageData;
-    let n: number = 10;
+    let n: number = 5;
 
     export let bees: SuperBee[] = [];
     export let flowers: SuperFlower[] = [];
@@ -39,21 +39,15 @@ namespace VL8 {
             let rd: Daisy = new Daisy();
             rd.draw();
         }
-        //Random Roses
-        for (var i: number = 0; i < 5; i++) {
-            let rr: Rose = new Rose();
-            rr.draw();
-        }
-        //Bild wird erstellt
-        image = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
         //Blumen im Array platzieren und ihnen eine random Position vergeben
         for (let i: number = 0; i < 8; i++) {   //8 Blumen befinden sich im Array
             let hf: Rose = new Rose();
             flowers.push(hf);
             console.log(hf);
+            flowers[i].draw();
         }
-
+        
         //Startposition Biene
         for (let i: number = 0; i < n; i++) {
             let b: SuperBee = new SuperBee(420, 490, "yellow", (i % 2) == 1); //Jeder Restwert gleich 1 -> true, ungleich 1 -> false = Jede 2. Biene bekommt unterschiedliche Größe
@@ -62,6 +56,9 @@ namespace VL8 {
             bees.push(h);
         }
 
+        //Bild wird erstellt
+        image = crc2.getImageData(0, 0, canvas.width, canvas.height);
+        
         window.setTimeout(animate, 20); //Verzögerung der function um 20sec
         canvas.addEventListener("click", drawNewBee); //click auf canvas dann function
         canvas.addEventListener("touch", drawNewBee);
@@ -73,8 +70,7 @@ namespace VL8 {
     //Biene zitternd fliegen lassen
     function animate(): void {
         console.log("Animate called");
-
-
+    
         //Bild übermalen
         crc2.putImageData(image, 0, 0);
 
@@ -87,6 +83,8 @@ namespace VL8 {
 
         window.setTimeout(animate, 20);
     }
+
+
 
     function drawNewBee(): void {
         let c: boolean;

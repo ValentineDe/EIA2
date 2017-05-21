@@ -6,6 +6,7 @@
 //Er wurde nicht kopiert und auch nicht diktiert.
 
 namespace VL8 {
+    
     export class HoneyBee extends SuperBee {
         xtarget: number;
         ytarget: number;
@@ -22,19 +23,19 @@ namespace VL8 {
         }
 
         setRandomFlowerTarget(): void {
-            let randomtargetflower: number = Math.round(Math.random() * (flowers.length - 1));
-            this.xtarget = flowers[randomtargetflower].x;
-            this.ytarget = flowers[randomtargetflower].y;
+            let flowertarget: number = Math.round(Math.random() * (flowers.length - 1));
+            this.xtarget = flowers[flowertarget].x;
+            this.ytarget = flowers[flowertarget].y;
         }
 
         move(): void {
-            let xDiff: number = this.xtarget - this.x;
-            let yDiff: number = this.ytarget - this.y;
-            if (Math.abs(xDiff) < 0.5 && Math.abs(yDiff) < 0.5)
+            let xDiff: number = this.xtarget - this.x - 30;
+            let yDiff: number = this.ytarget - this.y - 60;
+            if (Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1)
                 this.setRandomFlowerTarget();
             else {
-                this.x += xDiff;
-                this.y += yDiff;
+                this.x += xDiff * 0.02; //Aktion und neues target um 0.02 verlangsamen
+                this.y += yDiff * 0.02;
             }
         }
         drawBee(): void {
