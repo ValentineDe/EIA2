@@ -18,7 +18,10 @@ namespace Form {
     let toppings: string[] = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
     let container: string[] = ["Waffel", "Becher", "Am Stiel"];
 
-    let inputs: HTMLInputElement[] = [];
+    let inputsFlavor: HTMLInputElement[] = [];
+    let inputsTopping: HTMLInputElement[] = [];
+    let inputsContainer: HTMLInputElement[] = [];
+
     let fieldset: HTMLFieldSetElement;
 
 
@@ -30,7 +33,9 @@ namespace Form {
         createTopping();
         fieldset = document.getElementsByTagName("fieldset")[2];
         createContainer();
-        fieldset.addEventListener("change", handleChange);
+        
+        fieldset.addEventListener("change", handleOrder);
+        fieldset.addEventListener("change", showSum);
     }
 
 
@@ -40,24 +45,21 @@ namespace Form {
 
         for (let i: number = 0; i < flavors.length; i++) {
             console.log(flavors[i]);
-            createInputFlavor(flavors[i]);
+
+            let label: HTMLLabelElement = document.createElement("label");
+            let input: HTMLInputElement = document.createElement("input");
+
+            label.innerText = flavors[i];
+            label.appendChild(input);
+            
+            input.setAttribute("type", "number");
+            input.setAttribute("value", "0");
+            input.min = "0";
+            input.name = "flavorChoice";
+            inputsFlavor.push(input);
+            fieldset.appendChild(label);
         }
     }
-
-    function createInputFlavor(_flavors: string): void {
-
-        let label: HTMLLabelElement = document.createElement("label");
-        let input: HTMLInputElement = document.createElement("input");
-
-        label.innerText = _flavors;
-        label.appendChild(input);
-        input.type = "radio";
-        input.value = "fdsda";
-        input.name = "flavorChoice";
-        inputs.push(input);
-        fieldset.appendChild(label);
-    }
-
     ///////////Topping////////////////////////////////////////////////     
     function createTopping(): void {
 
@@ -78,7 +80,7 @@ namespace Form {
         input.name = "lala";
         label.innerText = _toppings;
         label.appendChild(input);
-        inputs.push(input);
+        inputsTopping.push(input);
         fieldset.appendChild(label);
     }
 
@@ -100,33 +102,46 @@ namespace Form {
         label.appendChild(input);
         input.type = "radio";
         input.name = "lala";
-        inputs.push(input);
+        inputsContainer.push(input);
         fieldset.appendChild(label);
     }
 
     ///////////Preissumme////////////////////////////////////////////////  
 
-    function handleChange(_event: Event): void {
+    function handleOrder(_event: Event): void {
 
+        console.log(_event);
+        let order: HTMLElement = document.getElementById("gesamtsumme");
+        order.innerText = "";
+
+        for (let i: number = 0; i < inputsFlavor.length; i++) {
+            if (parseInt(inputsFlavor[i].value) > 0) {
+                order.innerText += flavors[i] + " " + ": " + (parseInt(inputsFlavor[i].value) * 1) + "\n";
+            }
+        }
+
+        for (let i: number = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked) {
+                order.innerText += toppings[i] + " " + "\n";
+            }
+        }
+    }
+
+    function showSum(_event: Event): void {
         let sum: number = 0;
-        for (let i: number = 0; i < inputs.length; i++) {
-            console.log(inputs[i]);
-            sum += parseInt(inputs[i].value);
+
+        for (let i: number = 0; i < inputsFlavor.length; i++) {
+            sum += parseInt(inputsFlavor[i].value);
+        }
+
+        for (let i: number = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked)
+                sum += 0.5;
         }
         console.log(sum);
 
+        document.getElementById("gesamtsumme").innerText = sum.toString() + " €";
 
-
-        //        let target: HTMLInputElement = <HTMLInputElement>_event.target;
-        //        console.log("Changed " + target.name + " to " + target.value);
-        //
-        //        if (this.type == "checkbox")
-        //            console.log("Changed " + target.name + " to " + target.checked);
-        //
-        //
-        //        if (target.name == "Slider") {
-        //            let progress: HTMLProgressElement = <HTMLProgressElement>document.getElementsByTagName("progress")[0];
-        //            progress.value = parseFloat(target.value);
-        //        }
     }
-}       
+
+}

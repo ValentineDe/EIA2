@@ -14,7 +14,9 @@ var Form;
     let flavors = ["Schokolade-Chilli", "Avocado", "Lavendel", "Basilikum", "Macha", "Schwarztee-Zitrone", "Drachenfrucht", "Rosmarin", "Pecannuss-Banane", "Sesam", "Cola-Weizen"];
     let toppings = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
     let container = ["Waffel", "Becher", "Am Stiel"];
-    let inputs = [];
+    let inputsFlavor = [];
+    let inputsTopping = [];
+    let inputsContainer = [];
     let fieldset;
     function init() {
         fieldset = document.getElementsByTagName("fieldset")[0];
@@ -23,25 +25,24 @@ var Form;
         createTopping();
         fieldset = document.getElementsByTagName("fieldset")[2];
         createContainer();
-        fieldset.addEventListener("change", handleChange);
+        fieldset.addEventListener("change", handleOrder);
+        fieldset.addEventListener("change", showSum);
     }
     ///////////Eissorte////////////////////////////////////////////////      
     function createFlavor() {
         for (let i = 0; i < flavors.length; i++) {
             console.log(flavors[i]);
-            createInputFlavor(flavors[i]);
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            label.innerText = flavors[i];
+            label.appendChild(input);
+            input.setAttribute("type", "number");
+            input.setAttribute("value", "0");
+            input.min = "0";
+            input.name = "flavorChoice";
+            inputsFlavor.push(input);
+            fieldset.appendChild(label);
         }
-    }
-    function createInputFlavor(_flavors) {
-        let label = document.createElement("label");
-        let input = document.createElement("input");
-        label.innerText = _flavors;
-        label.appendChild(input);
-        input.type = "radio";
-        input.value = "fdsda";
-        input.name = "flavorChoice";
-        inputs.push(input);
-        fieldset.appendChild(label);
     }
     ///////////Topping////////////////////////////////////////////////     
     function createTopping() {
@@ -58,7 +59,7 @@ var Form;
         input.name = "lala";
         label.innerText = _toppings;
         label.appendChild(input);
-        inputs.push(input);
+        inputsTopping.push(input);
         fieldset.appendChild(label);
     }
     ///////////Darreichungsform////////////////////////////////////////////////     
@@ -75,28 +76,36 @@ var Form;
         label.appendChild(input);
         input.type = "radio";
         input.name = "lala";
-        inputs.push(input);
+        inputsContainer.push(input);
         fieldset.appendChild(label);
     }
     ///////////Preissumme////////////////////////////////////////////////  
-    function handleChange(_event) {
+    function handleOrder(_event) {
+        console.log(_event);
+        let order = document.getElementById("gesamtsumme");
+        order.innerText = "";
+        for (let i = 0; i < inputsFlavor.length; i++) {
+            if (parseInt(inputsFlavor[i].value) > 0) {
+                order.innerText += flavors[i] + " " + ": " + (parseInt(inputsFlavor[i].value) * 1) + "\n";
+            }
+        }
+        for (let i = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked) {
+                order.innerText += toppings[i] + " " + "\n";
+            }
+        }
+    }
+    function showSum(_event) {
         let sum = 0;
-        for (let i = 0; i < inputs.length; i++) {
-            console.log(inputs[i]);
-            sum += parseInt(inputs[i].value);
+        for (let i = 0; i < inputsFlavor.length; i++) {
+            sum += parseInt(inputsFlavor[i].value);
+        }
+        for (let i = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked)
+                sum += 0.5;
         }
         console.log(sum);
-        //        let target: HTMLInputElement = <HTMLInputElement>_event.target;
-        //        console.log("Changed " + target.name + " to " + target.value);
-        //
-        //        if (this.type == "checkbox")
-        //            console.log("Changed " + target.name + " to " + target.checked);
-        //
-        //
-        //        if (target.name == "Slider") {
-        //            let progress: HTMLProgressElement = <HTMLProgressElement>document.getElementsByTagName("progress")[0];
-        //            progress.value = parseFloat(target.value);
-        //        }
+        document.getElementById("gesamtsumme").innerText = sum.toString() + " €";
     }
 })(Form || (Form = {}));
 //# sourceMappingURL=aufg_9.js.map
