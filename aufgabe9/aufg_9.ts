@@ -2,146 +2,191 @@
 //Name: Valentine Deinert
 //Matrikel: 254015
 //Datum: 20.05.2017  
-//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe.
-//Er wurde nicht kopiert und auch nicht diktiert.
 
 namespace Form {
     window.addEventListener("load", init);
 
-    let scoopPrice: number = 1;
-    let toppingsPrice: number = 0.5;
-    let flavorPrice: number = 2;
-    let wafflePrice: number = 1;
-
-
+    let f: HTMLElement;
     let flavors: string[] = ["Schokolade-Chilli", "Avocado", "Lavendel", "Basilikum", "Macha", "Schwarztee-Zitrone", "Drachenfrucht", "Rosmarin", "Pecannuss-Banane", "Sesam", "Cola-Weizen"];
-    let toppings: string[] = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
-    let container: string[] = ["Waffel", "Becher", "Am Stiel"];
-
     let inputsFlavor: HTMLInputElement[] = [];
+
+    let t: HTMLElement;
+    let toppings: string[] = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
     let inputsTopping: HTMLInputElement[] = [];
+
+    let c: HTMLElement;
+    let container: string[] = ["Waffel", "Becher", "Am Stiel"];
     let inputsContainer: HTMLInputElement[] = [];
 
     let fieldset: HTMLFieldSetElement;
 
+    let order: HTMLElement;
+    let check: HTMLElement;
+    let orderList: HTMLElement;
+
 
     function init(): void {
 
-        fieldset = document.getElementsByTagName("fieldset")[0];
-        createFlavor();
-        fieldset = document.getElementsByTagName("fieldset")[1];
-        createTopping();
-        fieldset = document.getElementsByTagName("fieldset")[2];
-        createContainer();
-        
-        fieldset.addEventListener("change", handleOrder);
-        fieldset.addEventListener("change", showSum);
+        f = document.getElementById("flavors");
+        t = document.getElementById("toppings");
+        c = document.getElementById("container");
+        order = document.getElementById("order");
+        check = document.getElementById("send");
+
+        zusammenstellung();
+
+        f.addEventListener("change", price);
+        t.addEventListener("change", price);
+        c.addEventListener("change", price);
+        check.addEventListener("click", checkOrder);
     }
 
-
-    ///////////Eissorte////////////////////////////////////////////////      
-    function createFlavor(): void {
-
+    function zusammenstellung(): void {
 
         for (let i: number = 0; i < flavors.length; i++) {
-            console.log(flavors[i]);
-
-            let label: HTMLLabelElement = document.createElement("label");
-            let input: HTMLInputElement = document.createElement("input");
-
-            label.innerText = flavors[i];
-            label.appendChild(input);
-            
-            input.setAttribute("type", "number");
-            input.setAttribute("value", "0");
-            input.min = "0";
-            input.name = "flavorChoice";
-            inputsFlavor.push(input);
-            fieldset.appendChild(label);
+            createFlavor(flavors[i]);
         }
-    }
-    ///////////Topping////////////////////////////////////////////////     
-    function createTopping(): void {
-
         for (let i: number = 0; i < toppings.length; i++) {
-            console.log(toppings[i]);
-            createInputTopping(toppings[i]);
+            createTopping(toppings[i]);
+        }
+        for (let i: number = 0; i < container.length; i++) {
+            createContainer(container[i]);
         }
     }
 
-    function createInputTopping(_toppings: string): void {
+    ///////////Eissorte////////////////////////////////////////////////      
+    function createFlavor(_flavor: string): void {
 
         let label: HTMLLabelElement = document.createElement("label");
         let input: HTMLInputElement = document.createElement("input");
 
+        label.innerText = _flavor;
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "0");
+        input.min = "0";
+        label.id = _flavor;
 
-        input.type = "checkbox";
-        input.value = "";
-        input.name = "lala";
-        label.innerText = _toppings;
         label.appendChild(input);
+        f.appendChild(label);
+        inputsFlavor.push(input);
+    }
+
+    ///////////Topping////////////////////////////////////////////////     
+    function createTopping(_toppings: string): void {
+
+        let label: HTMLLabelElement = document.createElement("label");
+        let input: HTMLInputElement = document.createElement("input");
+
+        label.innerText = _toppings;
+        input.type = "checkbox";
+        label.id = _toppings;
+        label.appendChild(input);
+        t.appendChild(label);
         inputsTopping.push(input);
-        fieldset.appendChild(label);
     }
 
     ///////////Darreichungsform////////////////////////////////////////////////     
-    function createContainer(): void {
-
-        for (let i: number = 0; i < container.length; i++) {
-            console.log(container[i]);
-            createInputContainer(container[i]);
-        }
-    }
-
-    function createInputContainer(_container: string): void {
+    function createContainer(_container: string): void {
 
         let label: HTMLLabelElement = document.createElement("label");
         let input: HTMLInputElement = document.createElement("input");
 
         label.innerText = _container;
-        label.appendChild(input);
+        label.id = _container;
+        input.name = "container";
         input.type = "radio";
-        input.name = "lala";
+
+        label.appendChild(input);
         inputsContainer.push(input);
-        fieldset.appendChild(label);
+        c.appendChild(label);
     }
 
     ///////////Preissumme////////////////////////////////////////////////  
 
-    function handleOrder(_event: Event): void {
+    function price(): void {
+        let total: number = 0;
+        for (let i: number = 0; i < inputsFlavor.length; i++) {
+            total += parseInt(inputsFlavor[i].value);
+        }
+        for (let i: number = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked)
+                total += .25;
+        }
+        showSum(total);
+    }
 
-        console.log(_event);
-        let order: HTMLElement = document.getElementById("gesamtsumme");
-        order.innerText = "";
+    function showSum(_sum: Number): void {
+
+        orderList = document.getElementById("kreation");
+        orderList.innerText = "";
 
         for (let i: number = 0; i < inputsFlavor.length; i++) {
             if (parseInt(inputsFlavor[i].value) > 0) {
-                order.innerText += flavors[i] + " " + ": " + (parseInt(inputsFlavor[i].value) * 1) + "\n";
+                orderList.innerText += (parseInt(inputsFlavor[i].value)) + " Kugeln " + flavors[i] + " " + "\n";
             }
         }
 
         for (let i: number = 0; i < inputsTopping.length; i++) {
             if (inputsTopping[i].checked) {
-                order.innerText += toppings[i] + " " + "\n";
+                orderList.innerText += toppings[i] + "\n";
             }
         }
+
+        for (let i: number = 0; i < inputsContainer.length; i++) {
+            if (inputsContainer[i].checked) {
+                orderList.innerText += container[i] + "\n";
+            }
+        }
+
+        let completeSum: HTMLElement = document.getElementById("summe");
+        completeSum.innerText = _sum.toString() + " €";
     }
 
-    function showSum(_event: Event): void {
-        let sum: number = 0;
+    ///////////Bestellung überprüfen////////////////////////////////////////////////
 
+    function checkOrder(): void {
+
+        let warning: string[] = ["Invalid Entry: \n"];
+        let name: HTMLInputElement = <HTMLInputElement>document.getElementById("name");
+        let adress: HTMLInputElement = <HTMLInputElement>document.getElementById("adress");
+        let country: HTMLInputElement = <HTMLInputElement>document.getElementById("country");
+
+        let container: number = 0;
+        let kugel: number = 0;
+
+        //persönliche Daten
+        if (name.validity.valid == false)
+            warning.push("Stopp! Wir kennen deinen Namen noch nicht! \n");
+        if (adress.validity.valid == false)
+            warning.push("Stopp! Deine Adresse fehlt noch! \n");
+        if (country.validity.valid == false)
+            warning.push("Stopp! Deine PLZ und Stadt fehlen noch! \n");
+
+        //Zutaten
         for (let i: number = 0; i < inputsFlavor.length; i++) {
-            sum += parseInt(inputsFlavor[i].value);
+            if (parseInt(inputsFlavor[i].value) > 0)
+                kugel += 1;
+        }
+        if (kugel == 0)
+            warning.push("Du musst dir eine Eissorte aussuchen!\n");
+
+        for (let i: number = 0; i < inputsContainer.length; i++) {
+            if (inputsContainer[i].checked)
+                container += 1;
+        }
+        if (container == 0)
+            warning.push("Du musst dir einen Behälter aussuchen!\n");
+
+        //unvollständig
+        if (warning.length > 1) {
+            for (let i: number = 0; i < warning.length; i++)
+                warning.push;
+            alert(warning.join(""));
         }
 
-        for (let i: number = 0; i < inputsTopping.length; i++) {
-            if (inputsTopping[i].checked)
-                sum += 0.5;
+        //vollständig
+        else {
+            alert("Deine Bestellung wurde verschickt!\n");
         }
-        console.log(sum);
-
-        document.getElementById("gesamtsumme").innerText = sum.toString() + " €";
-
     }
-
 }

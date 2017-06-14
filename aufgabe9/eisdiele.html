@@ -23,24 +23,24 @@
 		<p>Bitte fülle dieses Bestellformular aus, um Deine eigene
 			Eissorte zu kreieren!</p>
 <br>
-		<fieldset class="form">
+		<fieldset id="flavors">
 			<legend>Eissorten</legend>
 		</fieldset>
 
-		<fieldset id="main">
+		<fieldset id="toppings">
 			<legend>Toppings</legend>
 		</fieldset>
 
-		<fieldset id="main">
+		<fieldset id="container">
 			<legend>Behältnis</legend>
 		</fieldset>
 
+		
+		
+		
 		<fieldset id="select">
-			<legend> Größe und Zusammensetzung</legend>
-
-			<h3>Anzahl Kugeln</h3>
-			<input type="range" name="Slider" min="0" max="4" step="1" value="0" />
-			<hr />
+			<legend>Zusammensetzung</legend>
+			
 			<h3>Besondere Zusammensetzung</h3>
 			<select name="Select" id="select">
 				<optgroup label="Vegane Optionen"></optgroup>
@@ -60,6 +60,7 @@
 		</fieldset>
 	</div>
 <br>
+
 	<fieldset class="Daten">
 		<legend> Persönliche Daten </legend>
 
@@ -68,13 +69,13 @@
 		<input type="radio" name="Radiogroup" value="Herr" id="radio1" /> <label
 			for="radio1">Herr</label> <input type="radio" name="Radiogroup"
 			value="Frau" id="radio2" /> <label for="radio2">Frau</label> <input
-			type="text" name="Text" placeholder="Name, Vorname" required />
+			type="text" name="Name" placeholder="Name, Vorname" required id="name"/>
 		<hr />
 
 		<h3>Lieferadresse:</h3>
-		<input type="text" name="Text" placeholder="Straße und Hausnr."
-			required /> <input type="text" name="Text" placeholder="PLZ, Ort"
-			required />
+		<input type="text" name="Adress" placeholder="Straße und Hausnr."
+			required id="adress"/> <input type="text" name="Country" placeholder="PLZ, Ort"
+			required id="country"/>
 		<hr />
 		<h3>So können wir Dich kontaktieren:</h3>
 		<input type="number" name="number" placeholder="Telefonnummer"
@@ -95,11 +96,15 @@
 			value="radio2" id="radio2" /> <label for="radio2">Kreditkarte</label>
 </fieldset>
 
-<div id="gesamtsumme">
+<div id="order">
 	<h4>Bestellübersicht</h4>
+	<p id="kreation"></p>
+	
+	<hr>
+	<p>Summe:</p><p id="summe"></p>
 </div>
 
-	<button name="Button" type="button">Auftrag abschicken</button>
+	<button id= "send" name="Button" type="button">Auftrag abschicken</button>
 	</main>
 </body>
 </html>

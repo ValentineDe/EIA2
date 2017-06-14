@@ -2,110 +2,151 @@
 //Name: Valentine Deinert
 //Matrikel: 254015
 //Datum: 20.05.2017  
-//Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe.
-//Er wurde nicht kopiert und auch nicht diktiert.
 var Form;
 (function (Form) {
     window.addEventListener("load", init);
-    let scoopPrice = 1;
-    let toppingsPrice = 0.5;
-    let flavorPrice = 2;
-    let wafflePrice = 1;
+    let f;
     let flavors = ["Schokolade-Chilli", "Avocado", "Lavendel", "Basilikum", "Macha", "Schwarztee-Zitrone", "Drachenfrucht", "Rosmarin", "Pecannuss-Banane", "Sesam", "Cola-Weizen"];
-    let toppings = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
-    let container = ["Waffel", "Becher", "Am Stiel"];
     let inputsFlavor = [];
+    let t;
+    let toppings = ["Kaffeebohnen", "Blüten", "Amaranth", "Erdnussbutter", "Kakaonibs", "Kiwi-Erdbeer Sauce", "Ahoi-Brause", "Chilliflocken", "Salted Caramel", "Kürbiskerne", "Schokosirup", "Ahornsirup"];
     let inputsTopping = [];
+    let c;
+    let container = ["Waffel", "Becher", "Am Stiel"];
     let inputsContainer = [];
     let fieldset;
+    let order;
+    let check;
+    let orderList;
     function init() {
-        fieldset = document.getElementsByTagName("fieldset")[0];
-        createFlavor();
-        fieldset = document.getElementsByTagName("fieldset")[1];
-        createTopping();
-        fieldset = document.getElementsByTagName("fieldset")[2];
-        createContainer();
-        fieldset.addEventListener("change", handleOrder);
-        fieldset.addEventListener("change", showSum);
+        f = document.getElementById("flavors");
+        t = document.getElementById("toppings");
+        c = document.getElementById("container");
+        order = document.getElementById("order");
+        check = document.getElementById("send");
+        zusammenstellung();
+        f.addEventListener("change", price);
+        t.addEventListener("change", price);
+        c.addEventListener("change", price);
+        check.addEventListener("click", checkOrder);
+    }
+    function zusammenstellung() {
+        for (let i = 0; i < flavors.length; i++) {
+            createFlavor(flavors[i]);
+        }
+        for (let i = 0; i < toppings.length; i++) {
+            createTopping(toppings[i]);
+        }
+        for (let i = 0; i < container.length; i++) {
+            createContainer(container[i]);
+        }
     }
     ///////////Eissorte////////////////////////////////////////////////      
-    function createFlavor() {
-        for (let i = 0; i < flavors.length; i++) {
-            console.log(flavors[i]);
-            let label = document.createElement("label");
-            let input = document.createElement("input");
-            label.innerText = flavors[i];
-            label.appendChild(input);
-            input.setAttribute("type", "number");
-            input.setAttribute("value", "0");
-            input.min = "0";
-            input.name = "flavorChoice";
-            inputsFlavor.push(input);
-            fieldset.appendChild(label);
-        }
-    }
-    ///////////Topping////////////////////////////////////////////////     
-    function createTopping() {
-        for (let i = 0; i < toppings.length; i++) {
-            console.log(toppings[i]);
-            createInputTopping(toppings[i]);
-        }
-    }
-    function createInputTopping(_toppings) {
+    function createFlavor(_flavor) {
         let label = document.createElement("label");
         let input = document.createElement("input");
-        input.type = "checkbox";
-        input.value = "";
-        input.name = "lala";
-        label.innerText = _toppings;
+        label.innerText = _flavor;
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "0");
+        input.min = "0";
+        label.id = _flavor;
         label.appendChild(input);
+        f.appendChild(label);
+        inputsFlavor.push(input);
+    }
+    ///////////Topping////////////////////////////////////////////////     
+    function createTopping(_toppings) {
+        let label = document.createElement("label");
+        let input = document.createElement("input");
+        label.innerText = _toppings;
+        input.type = "checkbox";
+        label.id = _toppings;
+        label.appendChild(input);
+        t.appendChild(label);
         inputsTopping.push(input);
-        fieldset.appendChild(label);
     }
     ///////////Darreichungsform////////////////////////////////////////////////     
-    function createContainer() {
-        for (let i = 0; i < container.length; i++) {
-            console.log(container[i]);
-            createInputContainer(container[i]);
-        }
-    }
-    function createInputContainer(_container) {
+    function createContainer(_container) {
         let label = document.createElement("label");
         let input = document.createElement("input");
         label.innerText = _container;
-        label.appendChild(input);
+        label.id = _container;
+        input.name = "container";
         input.type = "radio";
-        input.name = "lala";
+        label.appendChild(input);
         inputsContainer.push(input);
-        fieldset.appendChild(label);
+        c.appendChild(label);
     }
     ///////////Preissumme////////////////////////////////////////////////  
-    function handleOrder(_event) {
-        console.log(_event);
-        let order = document.getElementById("gesamtsumme");
-        order.innerText = "";
+    function price() {
+        let total = 0;
+        for (let i = 0; i < inputsFlavor.length; i++) {
+            total += parseInt(inputsFlavor[i].value);
+        }
+        for (let i = 0; i < inputsTopping.length; i++) {
+            if (inputsTopping[i].checked)
+                total += .25;
+        }
+        showSum(total);
+    }
+    function showSum(_sum) {
+        orderList = document.getElementById("kreation");
+        orderList.innerText = "";
         for (let i = 0; i < inputsFlavor.length; i++) {
             if (parseInt(inputsFlavor[i].value) > 0) {
-                order.innerText += flavors[i] + " " + ": " + (parseInt(inputsFlavor[i].value) * 1) + "\n";
+                orderList.innerText += (parseInt(inputsFlavor[i].value)) + " Kugeln " + flavors[i] + " " + "\n";
             }
         }
         for (let i = 0; i < inputsTopping.length; i++) {
             if (inputsTopping[i].checked) {
-                order.innerText += toppings[i] + " " + "\n";
+                orderList.innerText += toppings[i] + "\n";
             }
         }
+        for (let i = 0; i < inputsContainer.length; i++) {
+            if (inputsContainer[i].checked) {
+                orderList.innerText += container[i] + "\n";
+            }
+        }
+        let completeSum = document.getElementById("summe");
+        completeSum.innerText = _sum.toString() + " €";
     }
-    function showSum(_event) {
-        let sum = 0;
+    ///////////Bestellung überprüfen////////////////////////////////////////////////
+    function checkOrder() {
+        let warning = ["Invalid Entry: \n"];
+        let name = document.getElementById("name");
+        let adress = document.getElementById("adress");
+        let country = document.getElementById("country");
+        let container = 0;
+        let kugel = 0;
+        //persönliche Daten
+        if (name.validity.valid == false)
+            warning.push("Stopp! Wir kennen deinen Namen noch nicht! \n");
+        if (adress.validity.valid == false)
+            warning.push("Stopp! Deine Adresse fehlt noch! \n");
+        if (country.validity.valid == false)
+            warning.push("Stopp! Deine PLZ und Stadt fehlen noch! \n");
+        //Zutaten
         for (let i = 0; i < inputsFlavor.length; i++) {
-            sum += parseInt(inputsFlavor[i].value);
+            if (parseInt(inputsFlavor[i].value) > 0)
+                kugel += 1;
         }
-        for (let i = 0; i < inputsTopping.length; i++) {
-            if (inputsTopping[i].checked)
-                sum += 0.5;
+        if (kugel == 0)
+            warning.push("Du musst dir eine Eissorte aussuchen!\n");
+        for (let i = 0; i < inputsContainer.length; i++) {
+            if (inputsContainer[i].checked)
+                container += 1;
         }
-        console.log(sum);
-        document.getElementById("gesamtsumme").innerText = sum.toString() + " €";
+        if (container == 0)
+            warning.push("Du musst dir einen Behälter aussuchen!\n");
+        //unvollständig
+        if (warning.length > 1) {
+            for (let i = 0; i < warning.length; i++)
+                warning.push;
+            alert(warning.join(""));
+        }
+        else {
+            alert("Deine Bestellung wurde verschickt!\n");
+        }
     }
 })(Form || (Form = {}));
 //# sourceMappingURL=aufg_9.js.map

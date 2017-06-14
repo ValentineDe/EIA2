@@ -76,13 +76,6 @@ label::after {
 }
 
 
-#gesamtsumme{
-	background-color:#FFD3FE;
-	border: 2px solid grey;
-	
-}
-
-
 h4{
 	font-size: 1.5em;
 	font-weight: normal;
@@ -90,6 +83,15 @@ h4{
 }
 
 
+#order{
+	background-color:#FFD3FE;
+	border: 2px solid grey;
+	padding:1em;
+}
 
+#summe{
+	font-weight: bold;
+	color: #819FF7;
+}
 
 }
