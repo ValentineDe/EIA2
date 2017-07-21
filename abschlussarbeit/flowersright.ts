@@ -10,9 +10,6 @@ namespace GAME {
     export class FlowersRight {
         x: number;
         y: number;
-        fillColor: string;
-        strokeColor: string;
-        color: string;
 
         constructor() {
             this.setRandomPosition();

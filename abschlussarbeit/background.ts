@@ -19,19 +19,19 @@ namespace GAME {
             crc2.fillStyle = farbverlauf;
             crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
             
-            this.drawHedgeVertical(70, 90, "#247A07");
-            this.drawHedgeVertical(70, 250, "#247A07");
-            this.drawHedgeVertical(70, 450, "#247A07");
-            this.drawHedgeVertical(70, 720, "#247A07");
-            this.drawHedgeVertical(70, 920, "#247A07");
-            this.drawHedgeVertical(70, 1200, "#247A07");
+            this.drawHedge(70, 90, "#247A07");
+            this.drawHedge(70, 250, "#247A07");
+            this.drawHedge(70, 450, "#247A07");
+            this.drawHedge(70, 720, "#247A07");
+            this.drawHedge(70, 920, "#247A07");
+            this.drawHedge(70, 1200, "#247A07");
 
-            this.drawHedgeVertical(900, 90, "#247A07");
-            this.drawHedgeVertical(900, 250, "#247A07");
-            this.drawHedgeVertical(900, 450, "#247A07");
-            this.drawHedgeVertical(900, 720, "#247A07");
-            this.drawHedgeVertical(900, 920, "#247A07");
-            this.drawHedgeVertical(900, 1200, "#247A07");
+            this.drawHedge(900, 90, "#247A07");
+            this.drawHedge(900, 250, "#247A07");
+            this.drawHedge(900, 450, "#247A07");
+            this.drawHedge(900, 720, "#247A07");
+            this.drawHedge(900, 920, "#247A07");
+            this.drawHedge(900, 1200, "#247A07");
 
             this.drawRaceTrack(105, 0, "grey");
             this.drawRaceTrack(205, 0, "grey");
@@ -65,45 +65,7 @@ namespace GAME {
             crc2.fillStyle = _fillColor;
         }
 
-
         drawHedge(_x: number, _y: number, _fillColor: string): void {
-            var farbverlauf: any = crc2.createLinearGradient(0, 0, 0, 600);
-            farbverlauf.addColorStop("0.1", "#2D9A09");
-            farbverlauf.addColorStop("0.3", "#298A08");
-            farbverlauf.addColorStop("1", _fillColor);
-
-            crc2.beginPath();
-            crc2.fillStyle = farbverlauf;
-            crc2.arc(_x - 30, _y - 65, 30, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x - 10, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 30, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 70, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 100, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 140, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 180, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 220, _y - 65, 40, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-            crc2.arc(_x + 240, _y - 65, 30, 0, 2 * Math.PI);
-            crc2.closePath();
-            crc2.fill();
-        }
-
-        drawHedgeVertical(_x: number, _y: number, _fillColor: string): void {
             var farbverlauf: any = crc2.createLinearGradient(0, 0, 0, 600);
             farbverlauf.addColorStop("0.4", "#2D9A09");
             farbverlauf.addColorStop("0.7", "#298A08");
